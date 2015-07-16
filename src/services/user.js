@@ -3,9 +3,13 @@
 
   angular
     .module('app')
-    .factory('UserService', UserService);
+    .factory('UserService', ['$http', function($http) {
+      var service = {};
 
-  UserService.$inject = ['$http'];
+      return service;
+    }]);
+
+  /*UserService.$inject = ['$http'];
 
   function UserService($http) {
     var service = {};
@@ -57,6 +61,6 @@
         };
       };
     }
-  }
+  }*/
 
 })();

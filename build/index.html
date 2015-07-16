@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
-  <title>BFollow</title>
-  <script type="text/javascript" src="angular.min.js"></script>
-  <script type="text/javascript" src="angular-route.min.js"></script>
-  <script type="text/javascript" src="angular-cookies.min.js"></script>
-  <script type="text/javascript" src="bfollow.min.js"></script>
+  <title>BuFallow</title>
+  <!-- Angular -->
+  <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+  <script type="text/javascript" src="lib/angular/angular-route.min.js"></script>
+  <script type="text/javascript" src="lib/angular/angular-cookies.min.js"></script>
+
+  <!-- jQuery needed for Materialize -->
+  <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/materialize/js/materialize.min.js"></script>
+
+  <!-- BuFallow -->
+  <script type="text/javascript" src="js/bufollow.min.js"></script>
+
+  <!-- Materialize CSS -->
+  <link type="text/css" rel="stylesheet" href="lib/materialize/css/materialize.min.css"  media="screen,projection"/>
 </head>
 <body>
-  <div ng-view></div>
+  <div class="container">
+    <div ng-view></div>
+  </div>
 </body>
 </html>

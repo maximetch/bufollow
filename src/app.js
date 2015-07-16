@@ -40,17 +40,11 @@
           var i, path, restrictedPage;
           var locationPath = $location.path();
 
-          for (i = 0; i < locationPath.length; i += 1) {
-            path = locationPath[i];
-
-            if (path !== '/login' && path !== '/register') {
-              restrictedPage = true;
-              break;
-            }
-          }
+          restrictedPage = locationPath !== '/login' && locationPath !== '/register';
 
           // redirect to login page if not logged in and trying to access a restricted page
           var loggedIn = $rootScope.globals.currentUser;
+
           if (restrictedPage && !loggedIn) {
             $location.path('/login');
           }

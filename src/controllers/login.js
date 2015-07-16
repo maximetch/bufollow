@@ -1,35 +1,25 @@
-﻿(function () {
+(function() {
   'use strict';
 
   angular
     .module('app')
-    .controller('LoginController', ['$location', 'ConnectService', function($location, ConnectService) {
-
-    }]);
-
-    /*LoginController.$inject = ['$location', 'ConnectService'];
-    function LoginController($location, connect) {
-        var vm = this;
-
-        vm.login = login;
-
-        (function initController() {
-            // reset login status
-            AuthenticationService.ClearCredentials();
+    .controller('LoginController', [
+      '$location', 'ConnectService',
+      function($location, ConnectService) {
+        (function init() {
+          // Log out on init
+          ConnectService.logout();
         })();
 
-        function login() {
-            vm.dataLoading = true;
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
-                } else {
-                    FlashService.Error(response.message);
-                    vm.dataLoading = false;
-                }
-            });
+        this.login = function() {
+          ConnectService.login(this.name, this.password, function(response) {
+            if (response.success) {
+              $location.path('/');
+            } else {
+              // display error
+            }
+          });
         };
-    }*/
-
+      }
+    ]);
 })();

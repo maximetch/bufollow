@@ -4,11 +4,12 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
       options: {
+        sourceMap: true,
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
         src: ['src/**/*.js'],
-        dest: 'build/<%= pkg.name %>.min.js'
+        dest: 'build/js/<%= pkg.name %>.min.js'
       }
     },
     connect: {
