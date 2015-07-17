@@ -80,7 +80,7 @@ module.exports = function(grunt) {
       files: [{
         expand: true,
         cwd: sourcePath + 'design',
-        src: ['logo.png'],
+        src: ['*.png', '*.jpg', '*.jpeg', '*.gif'],
         dest: destPath + 'images'
       }]
     }
@@ -163,7 +163,7 @@ module.exports = function(grunt) {
     grunt.file.write(destPath + 'index.html', htmlContent);
   });
 
-  grunt.registerTask('rebuild', ['copy:templates', 'uglify', 'stylus', 'createPage']);
+  grunt.registerTask('rebuild', ['copy:templates', 'copy:images', 'uglify', 'stylus', 'createPage']);
 
   grunt.registerTask('build', function() {
     grunt.file.delete(destPath);

@@ -2,6 +2,7 @@
   <div transparent-content class="buf-login__card">
     <div layout-padding layout="row" layout-align="center center" >
       <img src="images/logo.png" class="buf-login__logo" />
+      <span class="buf-login__app-name">BuFallow</span>
     </div>
     <!-- logInForm.$invalid || vm.dataLoading -->
     <div layout="row" layout-align="center center" class="buf-login__card__content">
