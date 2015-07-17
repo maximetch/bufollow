@@ -1,8 +1,7 @@
-﻿<div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
-<div layout="row" layout-align="center center" class="buf-login">
-  <md-card-content>
+﻿<div layout="row" layout-align="center center" class="buf-login">
+  <md-content transparent-content>
     <md-card class="buf-login-card">
-      <md-card-content>
+      <md-content layout-padding>
         <form name="logInForm" ng-submit="vm.login()" role="form" novalidate ng-show="!vm.isRegistering">
           <md-input-container>
             <label>Username / email</label>
@@ -32,7 +31,7 @@
           </md-input-container>
 
         </form>
-      </md-card-content>
+      </md-content>
 
       <div class="md-actions" layout="row" layout-padding layout-align="end center">
         <div ng-show="!vm.isRegistering">
@@ -46,5 +45,5 @@
         </div>
       </div>
     </md-card>
-  </md-card-content>
+  </md-content>
 </divt>
