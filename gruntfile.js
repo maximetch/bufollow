@@ -6,46 +6,61 @@ module.exports = function(grunt) {
 
   var minJsName = pkg.name + '.min.js'
 
-  var files = [{
-    type: 'angular',
-    name: 'angular.min.js',
-    destFolder: destPath,
-    destPath: 'lib/angular/',
-    srcPath: modulesPath + 'angular/'
-  }, {
-    type: 'angular-route',
-    name: 'angular-route.min.js',
-    destFolder: destPath,
-    destPath: 'lib/angular/',
-    srcPath: modulesPath + 'angular-route/'
-  }, {
-    type: 'angular-cookies',
-    name: 'angular-cookies.min.js',
-    destFolder: destPath,
-    destPath: 'lib/angular/',
-    srcPath: modulesPath + 'angular-cookies/'
-  }, {
-    type: 'material-js',
-    name: 'material.min.js',
-    destFolder: destPath,
-    destPath: 'lib/material-design-lite/',
-    srcPath: modulesPath + 'material-design-lite/'
-  }, {
-    type: 'material-css',
-    name: 'material.min.css',
-    destFolder: destPath,
-    destPath: 'lib/material-design-lite/',
-    srcPath: modulesPath + 'material-design-lite/'
-  }, {
-    ignore: true,
-    type: 'stylesheet',
-    name: 'https://fonts.googleapis.com/icon?family=Material+Icons',
-    destPath: ''
-  }, {
-    ignore: true,
-    name: minJsName,
-    destPath: 'js/',
-  }]
+  var include = {
+    js: [{
+      type: 'angular',
+      name: 'angular.min.js',
+      destFolder: destPath,
+      destPath: 'lib/angular/',
+      srcPath: modulesPath + 'angular/'
+    }, {
+      type: 'angular-route',
+      name: 'angular-route.min.js',
+      destFolder: destPath,
+      destPath: 'lib/angular/',
+      srcPath: modulesPath + 'angular-route/'
+    }, {
+      type: 'angular-cookies',
+      name: 'angular-cookies.min.js',
+      destFolder: destPath,
+      destPath: 'lib/angular/',
+      srcPath: modulesPath + 'angular-cookies/'
+    }, {
+      type: 'angular-animate',
+      name: 'angular-animate.min.js',
+      destFolder: destPath,
+      destPath: 'lib/angular/',
+      srcPath: modulesPath + 'angular-animate/'
+    }, {
+      type: 'angular-aria',
+      name: 'angular-aria.min.js',
+      destFolder: destPath,
+      destPath: 'lib/angular/',
+      srcPath: modulesPath + 'angular-aria/'
+    }, {
+      type: 'angular-material-js',
+      name: 'angular-material.min.js',
+      destFolder: destPath,
+      destPath: 'lib/angular/',
+      srcPath: modulesPath + 'angular-material/'
+    }, {
+      ignore: true,
+      name: minJsName,
+      destPath: 'js/',
+    }],
+    css: [{
+      type: 'angular-material-css',
+      name: 'angular-material.css',
+      destFolder: destPath,
+      destPath: 'lib/angular/',
+      srcPath: modulesPath + 'angular-material/'
+    }, {
+      ignore: true,
+      type: 'stylesheet',
+      name: 'https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic',
+      destPath: ''
+    }]
+  };
 
   var copyConfig = {
     templates: {
@@ -58,15 +73,17 @@ module.exports = function(grunt) {
     }
   };
 
-  for (var i = 0; i < files.length; i += 1) {
-    var file = files[i];
+  var allIncluded = include.js.concat(include.css);
 
-    if (!file.ignore) {
-      copyConfig[file.type] = {
+  for (var i = 0; i < allIncluded.length; i += 1) {
+    var el = allIncluded[i];
+
+    if (!el.ignore) {
+      copyConfig[el.type] = {
         expand: true,
-        cwd: file.srcPath,
-        src: [file.name],
-        dest: file.destFolder + file.destPath
+        cwd: el.srcPath,
+        src: [el.name],
+        dest: el.destFolder + el.destPath
       };
     }
   }
@@ -111,12 +128,10 @@ module.exports = function(grunt) {
     var ejs = require('ejs');
     var templateContent = grunt.file.read(sourcePath + 'index.html');
 
-    var customFiles = files.slice(0);
-
     var htmlContent = ejs.render(templateContent, {
       app: {
         name: pkg.name,
-        files: customFiles
+        include: include
       }
     });
 

@@ -1,15 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html ng-app="app">
-<head>
-  <title><%= app.name %></title>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="...">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= app.name %></title>
 
-  <% app.files.forEach(function(file){
-    if (/\.js/.test(file.name)) { %><script type="text/javascript" src="<%= file.destPath + file.name %>"></script><% } else if (/\.css/.test(file.name) || file.type === 'stylesheet') { %><link type="text/css" rel="stylesheet" href="<%= file.destPath + file.name %>"/><% } %>
-  <% }); %>
-</head>
-<body>
-  <div class="container">
-    <div ng-view></div>
-  </div>
-</body>
+    <% app.include.css.forEach(function(file){%><link type="text/css" rel="stylesheet" href="<%= file.destPath + file.name %>"/>
+    <% }); %>
+  </head>
+  <body>
+    <div class="container">
+      <div ng-view></div>
+    </div>
+
+    <% app.include.js.forEach(function(file){%><script type="text/javascript" src="<%= file.destPath + file.name %>"></script>
+    <% }); %>
+  </body>
 </html>
