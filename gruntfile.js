@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
   var destPath = './build/';
-  var sourcePath = './sources/';
+  var sourcePath = './sources/client/';
   var modulesPath = './node_modules/';
   var pkg = grunt.file.readJSON('package.json');
 
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
     templates: {
       files: [{
         expand: true,
-        cwd: 'sources/templates',
+        cwd: sourcePath + 'templates',
         src: ['*.tpl'],
         dest: destPath + 'templates'
       }]
