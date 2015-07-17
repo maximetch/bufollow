@@ -11,9 +11,7 @@
     <% }); %>
   </head>
   <body>
-    <div class="container">
-      <div ng-view></div>
-    </div>
+    <div class="buf-page" ng-view></div>
 
     <% app.include.js.forEach(function(file){%><script type="text/javascript" src="<%= file.destPath + file.name %>"></script>
     <% }); %>

@@ -4,7 +4,8 @@ module.exports = function(grunt) {
   var modulesPath = './node_modules/';
   var pkg = grunt.file.readJSON('package.json');
 
-  var minJsName = pkg.name + '.min.js'
+  var minJSName = pkg.name.toLowerCase() + '.min.js'
+  var minCSSName = pkg.name.toLowerCase() + '.min.css'
 
   var include = {
     js: [{
@@ -45,12 +46,12 @@ module.exports = function(grunt) {
       srcPath: modulesPath + 'angular-material/'
     }, {
       ignore: true,
-      name: minJsName,
+      name: minJSName,
       destPath: 'js/',
     }],
     css: [{
       type: 'angular-material-css',
-      name: 'angular-material.css',
+      name: 'angular-material.min.css',
       destFolder: destPath,
       destPath: 'lib/angular/',
       srcPath: modulesPath + 'angular-material/'
@@ -59,6 +60,10 @@ module.exports = function(grunt) {
       type: 'stylesheet',
       name: 'https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic',
       destPath: ''
+    }, {
+      ignore: true,
+      name: minCSSName,
+      destPath: 'css/',
     }]
   };
 
@@ -88,9 +93,20 @@ module.exports = function(grunt) {
     }
   }
 
+  var stylusFiles = {};
+  stylusFiles[destPath + 'css/' + minCSSName ] = sourcePath + 'stylus/index.styl';
+
   // Project configuration.
   grunt.initConfig({
     pkg: pkg,
+    stylus: {
+      compile: {
+        options: {
+          paths: [sourcePath + 'stylus']
+        },
+        files: stylusFiles
+      }
+    },
     uglify: {
       options: {
         sourceMap: true,
@@ -98,7 +114,7 @@ module.exports = function(grunt) {
       },
       build: {
         src: sourcePath + '**/*.js',
-        dest: destPath + 'js/' + minJsName
+        dest: destPath + 'js/' + minJSName
       }
     },
     connect: {
@@ -123,6 +139,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-stylus');
 
   grunt.registerTask('createPage', function() {
     var ejs = require('ejs');
@@ -138,12 +155,13 @@ module.exports = function(grunt) {
     grunt.file.write(destPath + 'index.html', htmlContent);
   });
 
-  grunt.registerTask('rebuild', ['copy:templates', 'uglify', 'createPage']);
+  grunt.registerTask('rebuild', ['copy:templates', 'uglify', 'stylus', 'createPage']);
 
   grunt.registerTask('build', function() {
     grunt.file.delete(destPath);
     grunt.task.run('copy');
     grunt.task.run('uglify');
+    grunt.task.run('stylus');
     grunt.task.run('createPage');
   });
 

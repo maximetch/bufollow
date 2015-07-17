@@ -10,7 +10,7 @@
     })();
 
     this.login = function() {
-      ConnectService.login(this.name, this.password, function(response) {
+      ConnectService.login(this.username, this.password, function(response) {
         if (response.success) {
           $location.path('/');
         } else {

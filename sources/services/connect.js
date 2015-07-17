@@ -7,11 +7,11 @@
       '$http', '$cookieStore', '$rootScope', '$timeout', 'UserService',
       function($http, $cookieStore, $rootScope, $timeout, UserService) {
         return {
-          login: function(name, password, callback) {
-            var userData = Base64.encode(name + ':' + password);
+          login: function(username, password, callback) {
+            var userData = Base64.encode(username + ':' + password);
 
             $rootScope.globals.currentUser = {
-              userName: name,
+              userName: username,
               userData: userData
             };
 

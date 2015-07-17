@@ -17,11 +17,6 @@
           templateUrl: 'templates/login.tpl',
           controllerAs: 'vm'
         })
-        .when('/register', {
-          controller: 'RegisterController',
-          templateUrl: 'templates/register.tpl',
-          controllerAs: 'vm'
-        })
         .otherwise({
           redirectTo: '/login'
         });
@@ -47,15 +42,12 @@
       }
 
       $rootScope.$on('$locationChangeStart', function(event, next, current) {
-        var i, path, restrictedPage;
         var locationPath = $location.path();
-
-        restrictedPage = locationPath !== '/login' && locationPath !== '/register';
 
         // redirect to login page if not logged in and trying to access a restricted page
         var loggedIn = $rootScope.globals.currentUser;
 
-        if (restrictedPage && !loggedIn) {
+        if (locationPath !== '/login' && !loggedIn) {
           $location.path('/login');
         }
       });
