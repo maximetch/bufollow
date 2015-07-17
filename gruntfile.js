@@ -1,4 +1,8 @@
 module.exports = function(grunt) {
+  var fs = require('fs.extra');
+  var destPath = 'build/';
+  var sourcePath = 'sources/';
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -8,8 +12,8 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
-        src: ['src/**/*.js'],
-        dest: 'build/js/<%= pkg.name %>.min.js'
+        src: sourcePath + '**/*.js',
+        dest: destPath + 'js/<%= pkg.name %>.min.js'
       }
     },
     connect: {
@@ -27,6 +31,69 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-connect');
 
+  grunt.registerTask('clean', 'Clean build folder', function() {
+    fs.rmrfSync(destPath, function (err) {
+      if (err) {
+        console.error(err);
+      }
+    });
+  });
+
+  grunt.registerTask('move-sources', 'Copy html files', function() {
+    fs.copy(sourcePath + 'index.html', destPath + 'index.html', function (err) {
+      if (err) {
+        throw err;
+      }
+    });
+
+    fs.copyRecursive(sourcePath + 'templates', destPath + 'templates', function (err) {
+      if (err) {
+        throw err;
+      }
+    });
+  });
+
+  grunt.registerTask('move-lib', 'Copy lib files', function() {
+    var libPath = destPath + 'lib/';
+
+    // jQuery
+    fs.copyRecursive('node_modules/jquery/dist/jquery.min.js', libPath + 'jquery', function (err) {
+      if (err) {
+        throw err;
+      }
+    });
+
+    // Angular
+    fs.copyRecursive('node_modules/angular/angular.min.js', libPath + 'angular', function (err) {
+      if (err) {
+        throw err;
+      }
+    });
+    fs.copyRecursive('node_modules/angular-route/angular-route.min.js', libPath + 'angular', function (err) {
+      if (err) {
+        throw err;
+      }
+    });
+    fs.copyRecursive('node_modules/angular-cookies/angular-cookies.min.js', libPath + 'angular', function (err) {
+      if (err) {
+        throw err;
+      }
+    });
+
+    // Materialize
+    fs.copyRecursive('node_modules/materialize-css/bin', libPath + 'materialize/bin', function (err) {
+      if (err) {
+        throw err;
+      }
+    });
+    fs.copyRecursive('node_modules/materialize-css/font', libPath + 'materialize/font', function (err) {
+      if (err) {
+        throw err;
+      }
+    });
+  });
+
   // Default task(s).
-  grunt.registerTask('default', ['uglify', 'connect']);
+  grunt.registerTask('default', ['clean', 'uglify', 'move-sources', 'move-lib', 'connect']);
+
 };
