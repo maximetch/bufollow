@@ -1,8 +1,12 @@
 ﻿<div layout="row" layout-align="center center" class="buf-login">
-  <md-content transparent-content>
-    <md-card class="buf-login-card">
-      <md-content layout-padding>
-        <form name="logInForm" ng-submit="vm.login()" role="form" novalidate ng-show="!vm.isRegistering">
+  <div transparent-content class="buf-login__card">
+    <div layout-padding layout="row" layout-align="center center" >
+      <img src="images/logo.png" class="buf-login__logo" />
+    </div>
+    <!-- logInForm.$invalid || vm.dataLoading -->
+    <div layout="row" layout-align="center center" class="buf-login__card__content">
+      <div class="buf-login__card__forms" layout-padding>
+        <form layout-padding name="logInForm" ng-submit="vm.login() role="form" novalidate ng-show="!vm.isRegistering">
           <md-input-container>
             <label>Username / email</label>
             <input type="text" id="username" ng-model="vm.username" required/>
@@ -29,21 +33,20 @@
             <label>Password</label>
             <input type="password" id="password" ng-model="vm.password" required/>
           </md-input-container>
-
         </form>
-      </md-content>
 
-      <div class="md-actions" layout="row" layout-padding layout-align="end center">
-        <div ng-show="!vm.isRegistering">
-          <md-button href="#/register" class="md-primary" ng-click="vm.isRegistering=true">Don't have an account?</md-button>
-          <md-button class="md-primary md-raised" ng-disabled="logInForm.$invalid || vm.dataLoading">Log In</md-button>
-        </div>
+        <div class="md-actions" layout="row" layout-padding layout-align="end center">
+          <div ng-show="!vm.isRegistering">
+            <md-button href="#/register" class="md-primary" ng-click="vm.isRegistering=true">Don't have an account?</md-button>
+            <md-button class="md-primary md-raised">Log In</md-button>
+          </div>
 
-        <div ng-show="vm.isRegistering">
-          <md-button href="#/register" class="md-primary" ng-click="vm.isRegistering=false">Back to Log In</md-button>
-          <md-button class="md-raised md-primary" ng-disabled="signUpForm.$invalid || vm.dataLoading">Sign Up</md-button>
+          <div ng-show="vm.isRegistering">
+            <md-button href="#/register" class="md-primary" ng-click="vm.isRegistering=false">Back to Log In</md-button>
+            <md-button class="md-raised md-primary">Sign Up</md-button>
+          </div>
         </div>
       </div>
-    </md-card>
-  </md-content>
+    </md-content>
+  </div>
 </divt>

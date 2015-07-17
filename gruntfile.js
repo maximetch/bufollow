@@ -75,6 +75,14 @@ module.exports = function(grunt) {
         src: ['*.tpl'],
         dest: destPath + 'templates'
       }]
+    },
+    images: {
+      files: [{
+        expand: true,
+        cwd: sourcePath + 'design',
+        src: ['logo.png'],
+        dest: destPath + 'images'
+      }]
     }
   };
 

@@ -11,13 +11,13 @@
     "ejs": "^2.3.3",
     "express": "^4.13.1",
     "grunt": "~0.4.5",
+    "napa": "^1.2.0",
     "grunt-contrib-connect": "^0.10.1",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-stylus": "^0.21.0",
     "grunt-contrib-uglify": "~0.5.0",
     "grunt-contrib-watch": "^0.6.1",
-    "material-design-lite": "^1.0.0",
-    "napa": "^1.2.0"
+    "material-design-lite": "^1.0.0"
   }
 }
