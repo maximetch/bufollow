@@ -1,5 +1,4 @@
 ﻿<div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
-ff
 <div class="row">
   <form class="col s12" name="form" ng-submit="vm.login()" role="form">
     <div class="row">
