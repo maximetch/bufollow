@@ -1,15 +1,9 @@
-
-/**
- * Module dependencies
- */
-
-var express = require('express'),
-  routes = require('./routes'),
-  http = require('http'),
-  path = require('path');
+var express = require('express');
+var routes = require('./routes');
+var http = require('http');
+var path = require('path');
 
 var app = module.exports = express();
-
 
 /**
  * Configuration
@@ -20,14 +14,6 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname, 'public')));
-
-var env = process.env.NODE_ENV || 'development';
-
-
-// production only
-if (env === 'production') {
-  // TODO
-}
 
 /**
  * Routes
