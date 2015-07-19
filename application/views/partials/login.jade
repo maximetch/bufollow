@@ -1,0 +1,37 @@
+﻿div.buf-login(layout="row", layout-align="center center")
+  div.buf-login__card(transparent-content)
+    div(layout-padding, layout="row", layout-align="center center")
+      img.buf-login__logo(src="images/logo-text.png")
+
+    div.buf-login__card__content(layout="row", layout-align="center center")
+      div.buf-login__card__forms(layout-padding)
+        form(layout-padding, name="logInForm", ng-submit="vm.login()", role="form", novalidate, ng-show="!vm.isRegistering")
+          md-input-container
+            label Username / email
+            input#username(type="text", ng-model="vm.username", required)
+
+          md-input-container
+            label Password/label
+            input#password(type="password", ng-model="vm.password", required)
+
+        form(layout-padding, name="signUpForm", ng-submit="vm.signup()", role="form", novalidate, ng-show="vm.isRegistering")
+          md-input-container
+            label Email
+            input#email(type="text", ng-model="vm.email", required)
+
+          md-input-container
+            label Username
+            input#username(type="text", ng-model="vm.username", required)
+
+          md-input-container
+            label Password/label
+            input#password(type="password", ng-model="vm.password", required)
+
+        div.md-actions(layout="row", layout-padding, layout-align="end center")
+          div(ng-show="!vm.isRegistering")
+            md-button.md-primary(ng-click="vm.isRegistering=true") Don't have an account?
+            md-button.md-primary.md-raised Log In
+
+          div(ng-show="vm.isRegistering")
+            md-button.md-primary(href="#/login", ng-click="vm.isRegistering=false") Back to Log In
+            md-button.md-primary.md-raised Sign Up
