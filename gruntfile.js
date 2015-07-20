@@ -44,12 +44,14 @@ module.exports = function(grunt) {
         files:  [ '**/*.js' ],
         tasks:  [ 'express:dev' ],
         options: {
-          spawn: false
+          spawn: false,
+          interval: 5007
         }
       },
       scripts: {
         files: [sourcePath + '**/*.*'],
-        tasks: ['rebuild']
+        tasks: ['rebuild'],
+        interval: 5007
       }
     },
     concat: {
@@ -105,5 +107,5 @@ module.exports = function(grunt) {
     grunt.task.run('stylus');
   });
 
-  grunt.registerTask('server', [ 'express:dev', 'build', 'watch' ])
+  grunt.registerTask('server', [ 'express:dev', 'build', 'watch' ]);
 };

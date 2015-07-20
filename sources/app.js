@@ -11,7 +11,7 @@
         controllerAs: 'vm'
       })
       .otherwise({
-        redirectTo: '/login'
+        redirectTo: '/'
       });
 
     $locationProvider.html5Mode({
