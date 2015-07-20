@@ -4,26 +4,38 @@
   var app = angular.module('app');
 
   app.controller('LoginController', ['$location', 'ConnectService', 'UserService', function($location, ConnectService, UserService) {
-    (function init() {
-      // Log out on init
-      ConnectService.logout();
-    })();
+    this.init = function LoginController_init() {
+      this.loginInfo = {
+        username: '',
+        password: ''
+      };
 
-    this.login = function() {
-      ConnectService.login(this.username, this.password, function(response) {
-        if (response.success) {
-          $location.path('/');
-        } else {
-          // display error
-        }
-      });
+      this.registerInfo = {
+        username: '',
+        email: '',
+        password: ''
+      };
     };
 
-    this.register = function() {
-      UserService.create({
-        name: this.username,
-        email: this.email
-      });
+    this.login = function LoginController_login(valid) {
+      if (valid) {
+        ConnectService.login(this.username, this.password, function(response) {
+          if (response.success) {
+            $location.path('/');
+          } else {
+            // display error
+          }
+        });
+      }
+    };
+
+    this.register = function LoginController_register(valid) {
+      if (valid) {
+        this.registerInfo.dateCreate = Date.now();
+        UserService.create(this.registerInfo);
+
+        this.init();
+      }
     };
   }]);
 })();

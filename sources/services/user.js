@@ -6,9 +6,19 @@
     .factory('UserService', ['$http', function($http) {
       var service = {};
 
-      service.create = function UserService_create(user) {
-        return $http.post('/api/users', user, function(data) {
-          console.log(data);
+      service.check = function UserService_check(user) {
+        $http.get('/api/users', user, function(data) {
+
+        });
+      };
+
+      service.create = function UserService_create(user, callback) {
+        $http.post('/api/users', user, function(result) {
+
+          console.log(result)
+          if (callback) {
+            callback.apply();
+          }
         });
       };
 

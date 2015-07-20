@@ -32,11 +32,30 @@ app.post('/api/users', function(req, res) {
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function (callback) {
-
+    var userInfo = req.body;
     var User = require('./models/user');
-    new User(req.body).save(function() {
-      mongoose.connection.close();
+
+    User.find({
+      $or: [{
+        'userName': userInfo.username
+      }, {
+        'email': userInfo.email
+      }]
+    }, function(err, users) {
+      console.log(users)
+      if (users.length === 0) {
+        new User(userInfo).save(function() {
+          mongoose.connection.close();
+        });
+      } else {
+        res.send({
+          status: 'error',
+          message: 'Already exists'
+        });
+        mongoose.connection.close();
+      }
     });
+
   });
 });
 
@@ -54,7 +73,6 @@ app.get('/api/users', function(req, res) {
         mongoose.connection.close();
     });
   });
-
 });
 
 app.get('/api/clear', function(req, res) {
