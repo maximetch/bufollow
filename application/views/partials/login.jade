@@ -14,9 +14,7 @@
             label Password/label
             input#password(type="password", ng-model="vm.loginInfo.password", required)
 
-          div.md-actions(layout="row", layout-padding, layout-align="end center")
-            div(ng-show="!vm.isRegistering")
-              md-button.md-primary(ng-click="vm.isRegistering=true") Don't have an account?
+          div.md-actions(layout="row", layout-align="end center", ng-show="!vm.isRegistering")
               md-button.md-primary.md-raised(type="submit") Log In
 
         form(layout-padding, name="registerForm", ng-submit="vm.register(!registerForm.$invalid)", role="form", novalidate, ng-show="vm.isRegistering")
@@ -32,6 +30,8 @@
             label Password/label
             input#password(type="password", ng-model="vm.registerInfo.password", required)
 
-          div(ng-show="vm.isRegistering")
-            md-button.md-primary(href="/login", ng-click="vm.isRegistering=false;") Back to Log In
+          div.md-actions(layout="row", layout-align="end center")
             md-button.md-primary.md-raised(type="submit") Sign Up
+
+        md-button.md-primary(ng-click="vm.isRegistering=true", ng-show="!vm.isRegistering") Sign Up
+        md-button.md-primary(ng-click="vm.isRegistering=false",  ng-show="vm.isRegistering") Back to Log In
