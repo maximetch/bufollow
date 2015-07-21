@@ -41,17 +41,23 @@ module.exports = function(grunt) {
     },
     watch: {
       express: {
-        files:  [ '**/*.js' ],
-        tasks:  [ 'express:dev' ],
+        files: ['application/*.js'],
+        tasks: ['express:dev'],
         options: {
-          spawn: false,
-          interval: 5007
+          spawn: false
         }
       },
       scripts: {
-        files: [sourcePath + '**/*.*'],
-        tasks: ['rebuild'],
-        interval: 5007
+        files: [sourcePath + '**/*.js'],
+        tasks: ['uglify']
+      },
+      images: {
+        files: ['./design/**.*'],
+        tasks: ['copy:images']
+      },
+      stylus: {
+        files: [sourcePath + '**/*.styl'],
+        tasks: ['stylus']
       }
     },
     concat: {
@@ -96,8 +102,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-express-server');
-
-  grunt.registerTask('rebuild', ['copy:images', 'uglify', 'stylus']);
 
   grunt.registerTask('build', function() {
     grunt.file.delete(destPath);
