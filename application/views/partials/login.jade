@@ -1,11 +1,11 @@
 ﻿div.buf-login(layout="row", layout-align="center center")
   div.buf-login__card(transparent-content)
-    div(layout-padding, layout="row", layout-align="center center")
-      img.buf-login__logo(src="images/logo-text.png")
+    div.buf-login__logo(layout-padding, layout="column", layout-align="center center")
+      img(src="images/logo-text.png")
 
     div.buf-login__card__content(layout="row", layout-align="center center")
       div.buf-login__card__forms(layout-padding)
-        form(layout-padding, name="logInForm", ng-submit="vm.login(!logInForm.$invalid)", role="form", novalidate, ng-show="!vm.isRegistering")
+        form(md-theme="loginTheme", name="logInForm", ng-submit="vm.login(!logInForm.$invalid)", role="form", novalidate, ng-show="!vm.isRegistering")
           md-input-container
             label Username / email
             input#username(type="text", ng-model="vm.loginInfo.username", required)
@@ -14,10 +14,10 @@
             label Password/label
             input#password(type="password", ng-model="vm.loginInfo.password", required)
 
-          div.md-actions(layout="row", layout-align="end center", ng-show="!vm.isRegistering")
-              md-button.md-primary.md-raised(type="submit") Log In
+          div
+            md-button.md-primary.md-raised.buf-login__button(type="submit") Log In
 
-        form(layout-padding, name="registerForm", ng-submit="vm.register(!registerForm.$invalid)", role="form", novalidate, ng-show="vm.isRegistering")
+        form(md-theme="loginTheme", name="registerForm", ng-submit="vm.register(!registerForm.$invalid)", role="form", novalidate, ng-show="vm.isRegistering")
           md-input-container
             label Email
             input#email(type="email", ng-model="vm.registerInfo.email", required)
@@ -30,8 +30,13 @@
             label Password/label
             input#password(type="password", ng-model="vm.registerInfo.password", required)
 
-          div.md-actions(layout="row", layout-align="end center")
-            md-button.md-primary.md-raised(type="submit") Sign Up
+          div
+            md-button.md-primary.md-raised.buf-login__button(type="submit") Sign Up
 
-        md-button.md-primary(ng-click="vm.isRegistering=true", ng-show="!vm.isRegistering") Sign Up
-        md-button.md-primary(ng-click="vm.isRegistering=false",  ng-show="vm.isRegistering") Back to Log In
+        div.buf-login__more-buttons(layout="row", ng-show="!vm.isRegistering", md-theme="altTheme")
+          md-button.md-primary Forgot password?
+          md-button.md-raised.md-primary(ng-click="vm.isRegistering=true") Sign Up
+
+        div.buf-login__more-buttons(layout="row", ng-show="vm.isRegistering", md-theme="altTheme")
+          md-button.md-primary Forgot password?
+          md-button.md-raised.md-primary(ng-click="vm.isRegistering=false",  ng-show="vm.isRegistering") Log In

@@ -52,7 +52,7 @@ module.exports = function(grunt) {
         tasks: ['uglify']
       },
       images: {
-        files: ['./design/**.*'],
+        files: ['./design/*.*'],
         tasks: ['copy:images']
       },
       stylus: {
