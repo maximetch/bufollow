@@ -37,7 +37,7 @@ app.post('/api/users', function(req, res) {
 
     User.find({
       $or: [{
-        'userName': userInfo.username
+        'username': userInfo.username
       }, {
         'email': userInfo.email
       }]
