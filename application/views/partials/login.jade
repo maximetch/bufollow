@@ -11,7 +11,7 @@
             input#username(type="text", ng-model="vm.loginInfo.username", required)
 
           md-input-container
-            label Password/label
+            label Password
             input#password(type="password", ng-model="vm.loginInfo.password", required)
 
           div
@@ -27,16 +27,16 @@
             input#username(type="text", ng-model="vm.registerInfo.username", required)
 
           md-input-container
-            label Password/label
+            label Password
             input#password(type="password", ng-model="vm.registerInfo.password", required)
 
           div
             md-button.md-primary.md-raised.buf-login__button(type="submit") Sign Up
 
         div.buf-login__more-buttons(layout="row", ng-show="!vm.isRegistering", md-theme="altTheme")
-          md-button.md-primary Forgot password?
+          md-button.md-warn Forgot password?
           md-button.md-raised.md-primary(ng-click="vm.isRegistering=true") Sign Up
 
         div.buf-login__more-buttons(layout="row", ng-show="vm.isRegistering", md-theme="altTheme")
-          md-button.md-primary Forgot password?
+          md-button.md-warn Forgot password?
           md-button.md-raised.md-primary(ng-click="vm.isRegistering=false",  ng-show="vm.isRegistering") Log In
