@@ -1,4 +1,4 @@
-﻿div.buf-login(layout="row", layout-align="center center", md-theme="loginTheme")
+﻿div.buf-login(layout="row", layout-align="center center")
   div.buf-login__card(transparent-content)
     div.buf-login__logo(layout-padding, layout="column", layout-align="center center")
       img(src="images/logo-text.png")
@@ -14,7 +14,7 @@
             label Password
             input#password(type="password", ng-model="vm.loginInfo.password", required)
 
-          div(md-theme="altTheme")
+          div
             md-button.md-primary.md-raised.buf-login__button(type="submit") Log In
 
         form(name="registerForm", ng-submit="vm.register(!registerForm.$invalid)", role="form", novalidate, ng-show="vm.isRegistering")
@@ -30,13 +30,13 @@
             label Password
             input#password(type="password", ng-model="vm.registerInfo.password", required)
 
-          div(md-theme="altTheme")
+          div
             md-button.md-primary.md-raised.buf-login__button(type="submit") Sign Up
 
         div.buf-login__more-buttons(layout="row", ng-show="!vm.isRegistering", md-theme="altTheme")
-          md-button.md-accent Forgot password?
-          md-button.md-raised.md-warn(ng-click="vm.isRegistering=true") Sign Up
+          md-button Forgot password?
+          md-button.md-raised(ng-click="vm.isRegistering=true") Sign Up
 
         div.buf-login__more-buttons(layout="row", ng-show="vm.isRegistering", md-theme="altTheme")
-          md-button.md-accent Forgot password?
-          md-button.md-raised.md-warn(ng-click="vm.isRegistering=false",  ng-show="vm.isRegistering") Log In
+          md-button Forgot password?
+          md-button.md-raised(ng-click="vm.isRegistering=false",  ng-show="vm.isRegistering") Log In
