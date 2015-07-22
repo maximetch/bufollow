@@ -3,6 +3,7 @@
 
   &__content {
     width: 100%;
+    margin-top: -100px;
   }
 
   &__forms {
@@ -17,7 +18,7 @@
     }
 
     &__space {
-      height: 260px;
+      height: 250px;
     }
   }
 
@@ -46,12 +47,6 @@
 
   &__logo {
     $logoWidth = 260;
-
-    position: fixed;
-    top: 75px;
-    left: 50%;
-    margin-left: unit($logoWidth/2, 'px') * -1;
-    margin-bottom: 50px;
 
     img {
       width: unit($logoWidth, 'px');

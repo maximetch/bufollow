@@ -8,30 +8,25 @@
         form(name="logInForm", ng-submit="vm.login(!logInForm.$invalid)", role="form", novalidate, ng-show="!vm.isRegistering")
           div.buf-login__form__space(layout="row", layout-align="center center")
             div.buf-login__form__container(layout-padding)
-              md-input-container
-                label Username / email
-                input#username(type="text", ng-model="vm.loginInfo.username", required)
+              md-input-container(md-no-float)
+                input#username(type="text", ng-model="vm.loginInfo.username", required, placeholder="Username / email")
 
-              md-input-container
-                label Password
-                input#password(type="password", ng-model="vm.loginInfo.password", required)
+              md-input-container(md-no-float)
+                input#password(type="password", ng-model="vm.loginInfo.password", required, placeholder="Password")
 
           md-button.md-primary.md-raised.md-cornered.buf-login__button(type="submit") Log In
 
         form(name="registerForm", ng-submit="vm.register(!registerForm.$invalid)", role="form", novalidate, ng-show="vm.isRegistering")
           div.buf-login__form__space(layout="row", layout-align="center center")
             div.buf-login__form__container(layout-padding)
-              md-input-container
-                label Email
-                input#email(type="email", ng-model="vm.registerInfo.email", required)
+              md-input-container(md-no-float)
+                input#email(type="email", ng-model="vm.registerInfo.email", required, placeholder="Email")
 
-              md-input-container
-                label Username
-                input#username(type="text", ng-model="vm.registerInfo.username", required)
+              md-input-container(md-no-float)
+                input#username(type="text", ng-model="vm.registerInfo.username", required, placeholder="Username")
 
-              md-input-container
-                label Password
-                input#password(type="password", ng-model="vm.registerInfo.password", required)
+              md-input-container(md-no-float)
+                input#password(type="password", ng-model="vm.registerInfo.password", required, placeholder="Password")
 
           md-button.md-primary.md-raised.md-cornered.buf-login__button(type="submit") Sign Up
 
