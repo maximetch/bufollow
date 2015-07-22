@@ -42,16 +42,21 @@ app.post('/api/users', function(req, res) {
         'email': userInfo.email
       }]
     }, function(err, users) {
-      console.log(users)
       if (users.length === 0) {
         new User(userInfo).save(function() {
+          res.send({
+            status: 'OK',
+            statusMessage: 'User created'
+          });
+
           mongoose.connection.close();
         });
       } else {
         res.send({
           status: 'error',
-          message: 'Already exists'
+          statusMessage: 'A user is already registered with this email or username'
         });
+
         mongoose.connection.close();
       }
     });

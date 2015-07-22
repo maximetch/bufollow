@@ -5,7 +5,10 @@
 
     div(layout="row", layout-align="center center")
       div.buf-login__forms
+
         form(name="logInForm", ng-submit="vm.login(!logInForm.$invalid)", role="form", novalidate, ng-show="!vm.isRegistering")
+          div.buf-login__warning(layout-padding, ng-show="vm.errorMessage") {{vm.errorMessage}}
+
           div.buf-login__form__space(layout="row", layout-align="center center")
             div.buf-login__form__container(layout-padding)
               md-input-container(md-no-float)
@@ -17,6 +20,8 @@
           md-button.md-primary.md-raised.md-cornered.buf-login__button(type="submit") Log In
 
         form(name="registerForm", ng-submit="vm.register(!registerForm.$invalid)", role="form", novalidate, ng-show="vm.isRegistering")
+          div.buf-login__warning(layout-padding, ng-show="vm.errorMessage") {{vm.errorMessage}}
+
           div.buf-login__form__space(layout="row", layout-align="center center")
             div.buf-login__form__container(layout-padding)
               md-input-container(md-no-float)

@@ -7,17 +7,16 @@
       var service = {};
 
       service.check = function UserService_check(user) {
+        console.log(user)
         $http.get('/api/users', user, function(data) {
 
         });
       };
 
       service.create = function UserService_create(user, callback) {
-        $http.post('/api/users', user, function(result) {
-
-          console.log(result)
+        $http.post('/api/users', user).then(function(response) {
           if (callback) {
-            callback.apply();
+            callback(response.data);
           }
         });
       };

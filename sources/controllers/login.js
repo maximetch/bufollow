@@ -6,13 +6,16 @@
   app.controller('LoginController', [
     '$location', 'ConnectService', 'UserService',
     function($location, ConnectService, UserService) {
-      this.init = function LoginController_init() {
-        this.loginInfo = {
+      var that = this;
+
+      this.init = function init() {
+        that.errorMessage = '';
+        that.loginInfo = {
           username: '',
           password: ''
         };
 
-        this.registerInfo = {
+        that.registerInfo = {
           username: '',
           email: '',
           password: ''
@@ -34,11 +37,18 @@
       this.register = function LoginController_register(valid) {
         if (valid) {
           this.registerInfo.dateCreate = Date.now();
-          UserService.create(this.registerInfo);
-
-          this.init();
+          UserService.create(this.registerInfo, function(data) {
+            console.log(data)
+            if (data.status === 'error') {
+              that.errorMessage = data.statusMessage;
+            } else {
+              that.init();
+            }
+          });
         }
       };
+
+      this.init();
     }
   ]);
 })();
