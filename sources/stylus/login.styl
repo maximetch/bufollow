@@ -1,19 +1,26 @@
 .buf-login {
   height: 100%;
 
-  &__card {
+  &__content {
     width: 100%;
-    margin-top: -60px;
+  }
 
-    &__forms {
-      width: 320px;
+  &__forms {
+    width: 320px;
+  }
+
+  &__form {
+    &__container {
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      flex: 1;
+    }
+
+    &__space {
+      height: 260px;
     }
   }
 
-  &__form__container {
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
-  }
 
   &__more-buttons {
     margin-top 10px;
@@ -38,8 +45,16 @@
 
 
   &__logo {
+    $logoWidth = 260;
+
+    position: fixed;
+    top: 75px;
+    left: 50%;
+    margin-left: unit($logoWidth/2, 'px') * -1;
+    margin-bottom: 50px;
+
     img {
-      width: 250px;
+      width: unit($logoWidth, 'px');
     }
   }
 }
