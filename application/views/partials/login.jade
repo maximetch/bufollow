@@ -37,6 +37,6 @@
 
         div.buf-login__more-buttons(layout="row")
           md-button.md-cornered Forgot password?
-          md-button.md-raised.md-cornered(ng-click="vm.isRegistering=!vm.isRegistering")
-            <span ng-if="!vm.isRegistering"> Log In </span>
-            <span ng-if="vm.isRegistering"> Sign Up </span>
+          md-button.md-raised.md-cornered(ng-click="vm.isRegistering=!vm.isRegistering", aria-label="Switch form")
+            <span ng-if="vm.isRegistering">Back to Log In</span>
+            <span ng-if="!vm.isRegistering">Sign Up </span>
