@@ -8,9 +8,9 @@
   }
 
   &__forms {
-    $translatePos = 100;
+    $translatePos = 3000;
 
-    transition: .25s linear all;
+    transition: .5s ease all;
 
     &.registering {
       transform:  translate(unit(($translatePos + $width) * -1, 'px'));
@@ -27,7 +27,7 @@
   }
 
   &__container {
-    overflow: hidden;
+    //overflow: hidden;
     width: unit($width, 'px');
     white-space: nowrap;
   }
