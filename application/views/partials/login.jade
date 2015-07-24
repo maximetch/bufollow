@@ -1,4 +1,4 @@
-﻿div.buf-login(layout="row", layout-align="center center")
+div.buf-login(layout="row", layout-align="center center")
   div.buf-login__content(transparent-content)
     div.buf-login__logo(layout-padding, layout="column", layout-align="center center")
       img(src="images/logo3.png")
@@ -6,37 +6,31 @@
     div(layout="row", layout-align="center center")
       div.buf-login__forms
 
-        form(name="logInForm", ng-submit="vm.login(!logInForm.$invalid)", role="form", novalidate, ng-show="!vm.isRegistering")
+        form(ng-submit="!vm.isRegistering ? vm.login(!logInForm.$invalid) : vm.register(!registerForm.$invalid)", ng-repeat="n in ['logInForm', 'registerForm']", name="{{n}}", role="form", novalidate, ng-show="(n==='logInForm' && !vm.isRegistering) || (n==='registerForm' && vm.isRegistering)")
           div.buf-login__warning(layout-padding, ng-show="vm.errorMessage") {{vm.errorMessage}}
 
           div.buf-login__form__space(layout="row", layout-align="center center")
             div.buf-login__form__container(layout-padding)
-              md-input-container(md-no-float)
+              // LOGIN FORM
+              md-input-container(md-no-float, ng-if="n==='logInForm'")
                 input#username(type="text", ng-model="vm.loginInfo.username", required, placeholder="Username / email")
 
-              md-input-container(md-no-float)
+              md-input-container(md-no-float, ng-if="n==='logInForm'")
                 input#password(type="password", ng-model="vm.loginInfo.password", required, placeholder="Password")
 
-          md-button.md-primary.md-raised.md-cornered.buf-login__button(type="submit") Log In
-
-        form(name="registerForm", ng-submit="vm.register(!registerForm.$invalid)", role="form", novalidate, ng-show="vm.isRegistering")
-          div.buf-login__warning(layout-padding, ng-show="vm.errorMessage") {{vm.errorMessage}}
-
-          div.buf-login__form__space(layout="row", layout-align="center center")
-            div.buf-login__form__container(layout-padding)
-              md-input-container(md-no-float)
+              // LOGIN FORM
+              md-input-container(md-no-float, ng-if="n==='registerForm'")
                 input#email(type="email", ng-model="vm.registerInfo.email", required, placeholder="Email")
 
-              md-input-container(md-no-float)
+              md-input-container(md-no-float, ng-if="n==='registerForm'")
                 input#username(type="text", ng-model="vm.registerInfo.username", required, placeholder="Username")
 
-              md-input-container(md-no-float)
+              md-input-container(md-no-float, ng-if="n==='registerForm'")
                 input#password(type="password", ng-model="vm.registerInfo.password", required, placeholder="Password")
 
-          md-button.md-primary.md-raised.md-cornered.buf-login__button(type="submit") Sign Up
+          md-button.md-primary.md-raised.md-cornered.buf-login__button(type="submit") {{n==='logInForm' ? 'Log In' : 'Sign Up'}}
 
         div.buf-login__more-buttons(layout="row")
           md-button.md-cornered Forgot password?
           md-button.md-raised.md-cornered(ng-click="vm.isRegistering=!vm.isRegistering", aria-label="Switch form")
-            <span ng-if="vm.isRegistering">Back to Log In</span>
-            <span ng-if="!vm.isRegistering">Sign Up </span>
+            {{vm.isRegistering ? 'Back to Log In' : 'Sign Up'}}
