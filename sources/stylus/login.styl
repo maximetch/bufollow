@@ -1,4 +1,6 @@
 .buf-login {
+  $width = 320;
+
   height: 100%;
 
   &__content {
@@ -6,7 +8,28 @@
   }
 
   &__forms {
-    width: 320px;
+    $translatePos = 100;
+
+    transition: .25s linear all;
+
+    &.registering {
+      transform:  translate(unit(($translatePos + $width) * -1, 'px'));
+    }
+
+    form {
+      width: unit($width, 'px');
+      display: inline-block;
+
+      + form {
+        margin-left: unit($translatePos, 'px');
+      }
+    }
+  }
+
+  &__container {
+    overflow: hidden;
+    width: unit($width, 'px');
+    white-space: nowrap;
   }
 
   &__form {

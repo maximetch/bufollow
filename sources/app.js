@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var app = angular.module('app', ['ngRoute', 'ngCookies', 'ngMaterial']);
+  var app = angular.module('app', ['ngRoute', 'ngCookies', 'ngMaterial', 'ngAnimate']);
 
   app.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function($routeProvider, $locationProvider, $mdThemingProvider) {
     $routeProvider

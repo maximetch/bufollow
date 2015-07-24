@@ -9,7 +9,8 @@
       var that = this;
 
       this.init = function init() {
-        that.errorMessage = '';
+        that.isRegistering = false;
+        this.errorMessage = '';
         that.loginInfo = {
           username: '',
           password: ''
@@ -20,6 +21,18 @@
           email: '',
           password: ''
         };
+      };
+
+      this.switchLoginForm = function LoginController_switchLoginForm() {
+        var formsElement = document.querySelector('#buf-login__forms');
+
+        this.isRegistering = !this.isRegistering;
+
+        if (this.isRegistering) {
+          formsElement.classList.add('registering');
+        } else {
+          formsElement.classList.remove('registering');
+        }
       };
 
       this.login = function LoginController_login(valid) {
