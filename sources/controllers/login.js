@@ -8,8 +8,9 @@
     function($location, ConnectService, UserService) {
       var that = this;
 
-      this.init = function init() {
-        that.isRegistering = false;
+      this.isRegistering = false;
+
+      this.reset = function LoginController_reset() {
         this.errorMessage = '';
         that.loginInfo = {
           username: '',
@@ -23,6 +24,9 @@
         };
       };
 
+      /**
+       * Display the login or the register form
+       */
       this.switchLoginForm = function LoginController_switchLoginForm() {
         var formsElement = document.querySelector('#buf-login__forms');
 
@@ -33,6 +37,8 @@
         } else {
           formsElement.classList.remove('registering');
         }
+
+        this.errorMessage = '';
       };
 
       this.login = function LoginController_login(valid) {
@@ -51,17 +57,16 @@
         if (valid) {
           this.registerInfo.dateCreate = Date.now();
           UserService.create(this.registerInfo, function(data) {
-            console.log(data)
             if (data.status === 'error') {
               that.errorMessage = data.statusMessage;
             } else {
-              that.init();
+              that.reset();
             }
           });
         }
       };
 
-      this.init();
+      this.reset();
     }
   ]);
 })();
