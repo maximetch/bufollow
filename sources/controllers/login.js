@@ -55,7 +55,6 @@
 
       this.register = function LoginController_register(valid) {
         if (valid) {
-          this.registerInfo.dateCreate = Date.now();
           UserService.create(this.registerInfo, function(data) {
             if (data.status === 'error') {
               that.errorMessage = data.statusMessage;

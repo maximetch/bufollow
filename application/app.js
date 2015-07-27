@@ -1,15 +1,14 @@
 var express = require('express');
-var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var routes = require('./routes');
 
 var app = module.exports = express();
 
-/**
- * Configuration
- */
+
+// CONFIGURATION
 
 // all environments
 app.set('port', process.env.PORT || 3200);
@@ -18,65 +17,56 @@ app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
-/**
- * Routes
- */
+mongoose.connect('mongodb://localhost/bufollow');
+var User = require('./models/user');
 
+// ROUTES
+
+// -----------------------------
 // serve index and view partials
+// -----------------------------
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 
+// -----------------------------
+// Users
+// -----------------------------
 app.post('/api/users', function(req, res) {
-  mongoose.connect('mongodb://localhost/bufollow');
+  var userInfo = req.body;
 
-  var db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function (callback) {
-    var userInfo = req.body;
-    var User = require('./models/user');
-
-    User.find({
-      $or: [{
-        'username': userInfo.username
-      }, {
-        'email': userInfo.email
-      }]
-    }, function(err, users) {
-      if (users.length === 0) {
-        new User(userInfo).save(function() {
-          res.send({
-            status: 'OK',
-            statusMessage: 'User created'
-          });
-
-          mongoose.connection.close();
-        });
-      } else {
+  User.find({
+    $or: [{
+      'username': req.body.username
+    }, {
+      'email': req.body.email
+    }]
+  }, function(err, users) {
+    if (users.length === 0) {
+      new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        dateCreated: Date.now()
+      }).save(function() {
         res.send({
-          status: 'error',
-          statusMessage: 'A user is already registered with this email or username'
+          status: 'OK',
+          statusMessage: 'User created'
         });
 
         mongoose.connection.close();
-      }
-    });
-
+      });
+    } else {
+      res.send({
+        status: 'error',
+        statusMessage: 'A user is already registered with this email or username'
+      });
+    }
   });
 });
 
 app.get('/api/users', function(req, res) {
-  mongoose.connect('mongodb://localhost/bufollow');
-
-  var db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function (callback) {
-    var User = require('./models/user');
-
-    User.find({}, function (err, users) {
-        res.send(users);
-
-        mongoose.connection.close();
-    });
+  User.find({}, function (err, users) {
+    res.send(users);
   });
 });
 
@@ -98,10 +88,7 @@ app.get('/api/clear', function(req, res) {
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
 
-/**
- * Start Server
- */
-
+// Start server
 http.createServer(app).listen(app.get('port'), function (err) {
   console.log('Express server listening on port ' + app.get('port'));
 });

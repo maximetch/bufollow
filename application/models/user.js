@@ -12,7 +12,7 @@ var schema = new mongoose.Schema({
   password: {
     type: String
   },
-  dateCreate: {
+  dateCreated: {
     type: Date
   }
 });
