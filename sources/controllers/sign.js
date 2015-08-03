@@ -43,6 +43,7 @@
 
       this.signIn = function SignController_signIn(valid) {
         if (valid) {
+          console.log(this.signInInfo)
           SignService.signin(this.signInInfo, function(data) {
             if (data.status === 'error') {
               that.errorMessage = data.statusMessage;

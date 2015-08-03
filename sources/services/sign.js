@@ -15,6 +15,8 @@
       };
 
       service.signin = function SignService_create(user, callback) {
+
+        console.log(user)
         $http.post('/api/signin', user).then(function(response) {
           if (callback) {
             callback(response.data);
