@@ -4,6 +4,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require('./routes');
+var md5 = require('./md5');
 
 var app = module.exports = express();
 
@@ -29,60 +30,85 @@ app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 
 // -----------------------------
-// Users
+// Sign
 // -----------------------------
-app.post('/api/users', function(req, res) {
+app.post('/api/signup', function(req, res) {
   var userInfo = req.body;
 
-  User.find({
-    $or: [{
-      'username': req.body.username
-    }, {
-      'email': req.body.email
-    }]
-  }, function(err, users) {
-    if (users.length === 0) {
-      new User({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        dateCreated: Date.now()
-      }).save(function() {
-        res.send({
-          status: 'OK',
-          statusMessage: 'User created'
-        });
+  if (!req.body.username || !req.body.email || !req.body.password) {
+    res.send({
+        status: 'error',
+        statusMessage: 'Some fields are empty'
+      });
+  } else {
+    User.find({
+      $or: [{
+        'username': req.body.username
+      }, {
+        'email': req.body.email
+      }]
+    }, function(err, users) {
+      if (users.length === 0) {
+        new User({
+          username: req.body.username,
+          email: req.body.email,
+          password: md5(req.body.password),
+          dateCreated: Date.now()
+        }).save(function() {
+          res.send({
+            status: 'OK',
+            statusMessage: 'User created'
+          });
 
-        mongoose.connection.close();
+          mongoose.connection.close();
+        });
+      } else {
+        res.send({
+          status: 'error',
+          statusMessage: 'A user is already registered with this email or username'
+        });
+      }
+    });
+  }
+});
+
+app.post('/api/signin', function(req, res) {
+  console.log(req.body)
+  User.find({
+    password: req.body.password ? md5(req.body.password) : undefined,
+    username: req.body.name
+  }, function (err, user) {
+    if (user.length === 0) {
+      res.send({
+        status: 'error',
+        statusMessage: 'User not found'
       });
     } else {
       res.send({
-        status: 'error',
-        statusMessage: 'A user is already registered with this email or username'
+        status: 'OK',
+        statusMessage: 'User find'
       });
     }
   });
 });
 
+// -----------------------------
+// Users
+// -----------------------------
 app.get('/api/users', function(req, res) {
   User.find({}, function (err, users) {
     res.send(users);
   });
 });
 
+// -----------------------------
+// TMP
+// -----------------------------
 app.get('/api/clear', function(req, res) {
-  mongoose.connect('mongodb://localhost/bufollow');
+  var User = require('./models/user');
+  User.collection.remove();
 
-  var db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function (callback) {
-    console.log("CONNECTED")
-
-    var User = require('./models/user');
-    User.collection.remove();
-
-    mongoose.connection.close();
-  });
+  res.send('Cleared');
 });
 
 // redirect all others to the index (HTML5 history)

@@ -5,9 +5,9 @@
 
   app.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function($routeProvider, $locationProvider, $mdThemingProvider) {
     $routeProvider
-      .when('/login', {
-        controller: 'LoginController',
-        templateUrl: 'partials/login',
+      .when('/signin', {
+        controller: 'SignController',
+        templateUrl: 'partials/signin',
         controllerAs: 'vm'
       })
       .otherwise({

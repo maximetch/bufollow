@@ -4,8 +4,8 @@
   angular
     .module('app')
     .factory('ConnectService', [
-      '$http', '$cookieStore', '$rootScope', '$timeout', 'UserService',
-      function($http, $cookieStore, $rootScope, $timeout, UserService) {
+      '$http', '$cookieStore', '$rootScope', '$timeout', 'SignService',
+      function($http, $cookieStore, $rootScope, $timeout, SignService) {
         return {
           login: function(username, password, callback) {
             var userData = Base64.encode(username + ':' + password);

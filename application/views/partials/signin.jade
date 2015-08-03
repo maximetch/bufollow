@@ -1,0 +1,37 @@
+div.buf-sign(layout="row", layout-align="center center")
+  div.buf-sign__content(transparent-content)
+    div.buf-sign__logo(layout-padding, layout="column", layout-align="center center")
+      img(src="images/logo3.png")
+
+    div(layout="row", layout-align="center center")
+      div.buf-sign__container
+        div#buf-sign__forms.buf-sign__forms
+          // , ng-show="(n==='signInForm' && !vm.isRegistering) || (n==='signUpForm' && vm.isRegistering)"
+          form(ng-submit="!vm.isRegistering ? vm.signIn(!signInForm.$invalid) : vm.signUp(!signUpForm.$invalid)", ng-repeat="n in ['signInForm', 'signUpForm']", name="{{n}}", role="form", novalidate)
+            div.buf-sign__warning(layout-padding, ng-show="vm.errorMessage") {{vm.errorMessage}}
+
+            div.buf-sign__form__space(layout="row", layout-align="center center")
+              div.buf-sign__form__container(layout-padding)
+                // SIGNIN FORM
+                md-input-container(md-no-float, ng-if="n==='signInForm'")
+                  input#username(type="text", ng-model="vm.signInfo.username", required, placeholder="Username / email")
+
+                md-input-container(md-no-float, ng-if="n==='signInForm'")
+                  input#password(type="password", ng-model="vm.signInfo.password", required, placeholder="Password")
+
+                // SIGNUP FORM
+                md-input-container(md-no-float, ng-if="n==='signUpForm'")
+                  input#email(type="email", ng-model="vm.signUpInfo.email", required, placeholder="Email")
+
+                md-input-container(md-no-float, ng-if="n==='signUpForm'")
+                  input#username(type="text", ng-model="vm.signUpInfo.username", required, placeholder="Username")
+
+                md-input-container(md-no-float, ng-if="n==='signUpForm'")
+                  input#password(type="password", ng-model="vm.signUpInfo.password", required, placeholder="Password")
+
+            md-button.md-primary.md-raised.md-cornered.buf-sign__button(type="submit") {{n==='signInForm' ? 'Sign In' : 'Sign Up'}}
+
+        div.buf-sign__more-buttons(layout="row")
+          md-button.md-cornered Forgot password?
+          md-button.md-raised.md-cornered(ng-click="vm.switchForm()", aria-label="Switch form")
+            {{vm.isRegistering ? 'Sign In' : 'Sign Up'}}

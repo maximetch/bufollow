@@ -3,21 +3,21 @@
 
   var app = angular.module('app');
 
-  app.controller('LoginController', [
-    '$location', 'ConnectService', 'UserService',
-    function($location, ConnectService, UserService) {
+  app.controller('SignController', [
+    '$location', 'ConnectService', 'SignService',
+    function($location, ConnectService, SignService) {
       var that = this;
 
       this.isRegistering = false;
 
-      this.reset = function LoginController_reset() {
+      this.reset = function SignController_reset() {
         this.errorMessage = '';
-        that.loginInfo = {
+        that.signInInfo = {
           username: '',
           password: ''
         };
 
-        that.registerInfo = {
+        that.signUpInfo = {
           username: '',
           email: '',
           password: ''
@@ -25,10 +25,10 @@
       };
 
       /**
-       * Display the login or the register form
+       * Display the signin or the signup form
        */
-      this.switchLoginForm = function LoginController_switchLoginForm() {
-        var formsElement = document.querySelector('#buf-login__forms');
+      this.switchForm = function SignController_switchForm() {
+        var formsElement = document.querySelector('#buf-sign__forms');
 
         this.isRegistering = !this.isRegistering;
 
@@ -41,21 +41,23 @@
         this.errorMessage = '';
       };
 
-      this.login = function LoginController_login(valid) {
+      this.signIn = function SignController_signIn(valid) {
         if (valid) {
-          ConnectService.login(this.username, this.password, function(response) {
-            if (response.success) {
-              $location.path('/');
+          SignService.signin(this.signInInfo, function(data) {
+            if (data.status === 'error') {
+              that.errorMessage = data.statusMessage;
             } else {
-              // display error
+              that.reset();
+
+              $location.path("/");
             }
           });
         }
       };
 
-      this.register = function LoginController_register(valid) {
+      this.signUp = function SignController_signUp(valid) {
         if (valid) {
-          UserService.create(this.registerInfo, function(data) {
+          SignService.signup(this.signUpInfo, function(data) {
             if (data.status === 'error') {
               that.errorMessage = data.statusMessage;
             } else {
