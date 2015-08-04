@@ -10,8 +10,13 @@
         templateUrl: 'partials/signin',
         controllerAs: 'vm'
       })
+      .when('/home', {
+        controller: 'HomeController',
+        templateUrl: 'partials/home',
+        controllerAs: 'vm'
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/home'
       });
 
     $locationProvider.html5Mode({
