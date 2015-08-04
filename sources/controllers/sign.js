@@ -19,7 +19,7 @@
       this.reset = function SignController_reset() {
         this.errorMessage = '';
         that.signInInfo = {
-          username: '',
+          id: '',
           password: ''
         };
 

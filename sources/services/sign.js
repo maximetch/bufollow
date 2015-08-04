@@ -16,17 +16,16 @@
 
       service.signin = function SignService_create(user, callback) {
         $http.post('/api/signin', user).then(function(response) {
-          var userData = Base64.encode(user.username + ':' + password);
+          var data = response.data;
+          var userData = Base64.encode(data.username + ':' + password);
 
           $rootScope.globals.currentUser = {
-            userName: user.username,
+            userName: data.username,
             userData: userData
           };
 
           $http.defaults.headers.common.Authorization = 'Basic ' + userData;
           $cookieStore.put('globals', $rootScope.globals);
-
-          console.log($rootScope.globals);
 
           if (callback) {
             callback(response.data);

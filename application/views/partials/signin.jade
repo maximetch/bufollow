@@ -14,7 +14,7 @@ div.buf-sign(layout="row", layout-align="center center")
               div.buf-sign__form__container(layout-padding)
                 // SIGNIN FORM
                 md-input-container(md-no-float, ng-if="n==='signInForm'")
-                  input#username(type="text", ng-model="vm.signInInfo.username", required, placeholder="Username / email")
+                  input#username(type="text", ng-model="vm.signInInfo.id", required, placeholder="Username / email")
 
                 md-input-container(md-no-float, ng-if="n==='signInForm'")
                   input#password(type="password", ng-model="vm.signInInfo.password", required, placeholder="Password")

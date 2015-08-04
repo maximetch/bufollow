@@ -74,8 +74,15 @@ app.post('/api/signup', function(req, res) {
 
 app.post('/api/signin', function(req, res) {
   User.find({
-    password: req.body.password ? md5(req.body.password) : undefined,
-    username: req.body.username
+    $and: [{
+      $or: [{
+        'username': req.body.id
+      }, {
+        'email': req.body.id
+      }]
+    }, {
+      'password': req.body.password ? md5(req.body.password) : undefined
+    }]
   }, function (err, user) {
     if (user.length === 0) {
       res.send({
@@ -86,7 +93,7 @@ app.post('/api/signin', function(req, res) {
       res.send({
         status: 'OK',
         statusMessage: 'User find',
-        username: user.username
+        username: user[0].username
       });
     }
   });
