@@ -8,6 +8,12 @@
     function($location, ConnectService, SignService) {
       var that = this;
 
+      (function initController() {
+        // reset login status
+        SignService.logout();
+      })();
+
+
       this.isRegistering = false;
 
       this.reset = function SignController_reset() {
@@ -43,7 +49,6 @@
 
       this.signIn = function SignController_signIn(valid) {
         if (valid) {
-          console.log(this.signInInfo)
           SignService.signin(this.signInInfo, function(data) {
             if (data.status === 'error') {
               that.errorMessage = data.statusMessage;
