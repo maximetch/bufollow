@@ -85,6 +85,14 @@ module.exports = function(grunt) {
           dest: destPath + 'images'
         }]
       },
+      icons: {
+        files: [{
+          expand: true,
+          cwd: './design/iconfont',
+          src: ['*.*'],
+          dest: destPath + 'iconfont'
+        }]
+      },
       angularMaterialCSS: {
         files: [{
           expand: true,
