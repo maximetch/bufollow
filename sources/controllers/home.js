@@ -4,7 +4,7 @@
   var app = angular.module('app');
 
   app.controller('HomeController', [
-    '$location', 'ConnectService',
+    '$location', 'SignService',
     function($location, ConnectService) {
     }
   ]);

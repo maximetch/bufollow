@@ -4,8 +4,8 @@
   var app = angular.module('app');
 
   app.controller('SignController', [
-    '$location', 'ConnectService', 'SignService',
-    function($location, ConnectService, SignService) {
+    '$location', 'SignService',
+    function($location, SignService) {
       var that = this;
 
       (function initController() {
