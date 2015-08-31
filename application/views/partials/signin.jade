@@ -2,31 +2,38 @@ div.buf-sign(layout="row", layout-align="center center")
   div.buf-sign__content(transparent-content)
     div.buf-sign__logo(layout-padding, layout="column", layout-align="center center")
       img(src="images/logo-text.png")
-
     div(layout="row", layout-align="center center")
       div.buf-sign__container
         div#buf-sign__forms.buf-sign__forms
-          // , ng-show="(n==='signInForm' && !vm.isRegistering) || (n==='signUpForm' && vm.isRegistering)"
-          form(ng-submit="!vm.isRegistering ? vm.signIn(!signInForm.$invalid) : vm.signUp(!signUpForm.$invalid)", ng-repeat="n in ['signInForm', 'signUpForm']", name="{{n}}", role="form", novalidate)
+          form(method="post", autocomplete="off", ng-submit="!vm.isRegistering ? vm.signIn(!signInForm.$invalid) : vm.signUp(!signUpForm.$invalid)", ng-repeat="n in ['signInForm', 'signUpForm']", name="{{n}}", role="form", novalidate)
+            // Fake username & password fields are here to fix chrome issue with automplete
+            input(style="display:none", type="text", name="fakeusername")
+            input(style="display:none", type="password", name="fakepassword")
+
             div.buf-sign__warning(layout-padding, ng-show="vm.errorMessage") {{vm.errorMessage}}
 
             div.buf-sign__form__space(layout="row", layout-align="center center")
               div.buf-sign__form__container(layout-padding)
                 // SIGNIN FORM
-                md-input-container(md-no-float, ng-if="n==='signInForm'")
+                md-input-container(ng-if="n==='signInForm'", md-no-float)
+                  md-icon person
                   input#username(type="text", ng-model="vm.signInInfo.id", required, placeholder="Username / email")
 
-                md-input-container(md-no-float, ng-if="n==='signInForm'")
+                md-input-container(ng-if="n==='signInForm'", md-no-float)
+                  md-icon vpn_key
                   input#password(type="password", ng-model="vm.signInInfo.password", required, placeholder="Password")
 
                 // SIGNUP FORM
-                md-input-container(md-no-float, ng-if="n==='signUpForm'")
+                md-input-container(ng-if="n==='signUpForm'", md-no-float)
+                  md-icon email
                   input#email(type="email", ng-model="vm.signUpInfo.email", required, placeholder="Email")
 
-                md-input-container(md-no-float, ng-if="n==='signUpForm'")
+                md-input-container(ng-if="n==='signUpForm'", md-no-float)
+                  md-icon person
                   input#username(type="text", ng-model="vm.signUpInfo.username", required, placeholder="Username")
 
-                md-input-container(md-no-float, ng-if="n==='signUpForm'")
+                md-input-container(ng-if="n==='signUpForm'", md-no-float)
+                  md-icon vpn_key
                   input#password(type="password", ng-model="vm.signUpInfo.password", required, placeholder="Password")
 
             md-button.md-primary.md-raised.md-cornered.buf-sign__button(type="submit") {{n==='signInForm' ? 'Sign In' : 'Sign Up'}}
